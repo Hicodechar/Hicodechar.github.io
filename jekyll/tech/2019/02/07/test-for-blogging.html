@@ -73,7 +73,7 @@
 
 <p>该命令会在文件夹 <code class="highlighter-rouge">_post</code> 中生成文件 <code class="highlighter-rouge">2019-02-07-test-for-blogging.markdown</code>, 文件名前面的时间是自动添加的，编辑该文件为以下格式：</p>
 
-<figure class="highlight"><pre><code class="language-ruby" data-lang="ruby"><span class="o">---</span>
+<div class="language-ruby highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">---</span>
 <span class="ss">layout: </span><span class="n">post</span>
 <span class="ss">title: </span><span class="s2">"Test for Blogging"</span>
 <span class="ss">date: </span><span class="mi">2019</span><span class="o">-</span><span class="mo">02</span><span class="o">-</span><span class="mo">07</span><span class="no">T12</span><span class="p">:</span><span class="mi">55</span><span class="p">:</span><span class="mi">13</span><span class="o">+</span><span class="mi">08</span><span class="p">:</span><span class="mo">00</span>
@@ -81,7 +81,8 @@
 <span class="ss">author: </span><span class="n">cdz</span>
 <span class="ss">excerpt_separator: </span><span class="o">&lt;!--</span><span class="n">more</span><span class="o">--&gt;</span>
 <span class="o">---</span>
-<span class="err">这里编写</span> <span class="n">blog</span> <span class="err">正文。中间可以用</span> <span class="o">&lt;!--</span><span class="n">more</span><span class="o">--&gt;</span> <span class="err">分割。</span></code></pre></figure>
+<span class="err">这里编写</span> <span class="n">blog</span> <span class="err">正文。中间可以用</span> <span class="o">&lt;!--</span><span class="n">more</span><span class="o">--&gt;</span> <span class="err">分割。</span>
+</code></pre></div></div>
 
 <p>以上：</p>
 <ul>
@@ -124,6 +125,11 @@ jekyll serve
 <p>插入空行使用 html 的语法，只需要在相应的位置插入 <code class="highlighter-rouge">&lt;br/&gt;</code></p>
 
 <h4 id="2插入图片">(2)、插入图片</h4>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>![image-title-here](/path/to/image.jpg){:class="img-responsive"}
+</code></pre></div></div>
+
+<p><img src="/image/test/icon.ico" alt="test_image" class="img-responsive" /></p>
 
 
   </div><a class="u-url" href="/jekyll/tech/2019/02/07/test-for-blogging.html" hidden></a>

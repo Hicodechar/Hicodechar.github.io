@@ -1,6 +1,6 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-07T17:41:12+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><entry><title type="html">Test for Blogging</title><link href="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html" rel="alternate" type="text/html" title="Test for Blogging" /><published>2019-02-07T12:55:13+08:00</published><updated>2019-02-07T12:55:13+08:00</updated><id>http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging</id><content type="html" xml:base="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html">&lt;p&gt;该 blog 用于说明写 blog 的一些格式要求。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-07T22:45:43+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">Test for blogging</title><link href="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html" rel="alternate" type="text/html" title="Test for blogging" /><published>2019-02-07T12:55:13+08:00</published><updated>2019-02-07T12:55:13+08:00</updated><id>http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging</id><content type="html" xml:base="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html">&lt;p&gt;该 blog 用于说明写 blog 的一些格式要求。
+&lt;!--more--&gt;&lt;/p&gt;
 
-&lt;!--more--&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;新建-blog&quot;&gt;新建 blog&lt;/h3&gt;
 
@@ -13,7 +13,7 @@
 
 &lt;div class=&quot;language-ruby highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;---&lt;/span&gt;
 &lt;span class=&quot;ss&quot;&gt;layout: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;post&lt;/span&gt;
-&lt;span class=&quot;ss&quot;&gt;title: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Test for Blogging&quot;&lt;/span&gt;
+&lt;span class=&quot;ss&quot;&gt;title: &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Test for blogging&quot;&lt;/span&gt;
 &lt;span class=&quot;ss&quot;&gt;date: &lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2019&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;02&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;07&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;T12&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;55&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;13&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;+&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;08&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mo&quot;&gt;00&lt;/span&gt;
 &lt;span class=&quot;ss&quot;&gt;categories: &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;no&quot;&gt;Jekyll&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;no&quot;&gt;Tech&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt;
 &lt;span class=&quot;ss&quot;&gt;author: &lt;/span&gt;&lt;span class=&quot;n&quot;&gt;cdz&lt;/span&gt;
@@ -52,6 +52,7 @@ jekyll serve
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;部署-blog-到网站&quot;&gt;部署 blog 到网站&lt;/h3&gt;
+
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;octopress deploy
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
@@ -65,9 +66,24 @@ jekyll serve
 &lt;h4 id=&quot;2插入图片&quot;&gt;(2)、插入图片&lt;/h4&gt;
 
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;![image-title-here](/path/to/image.jpg){:class=&quot;img-responsive&quot;}
+
+// 或者按照以下方法，使用 html 语法, 可以调节图片的大小
+&amp;lt;p&amp;gt;&amp;lt;img src=&quot;/image/DongBei/barbecue.jpg&quot; width=&quot;500&quot;&amp;gt;&amp;lt;/p&amp;gt;
+
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;&lt;img src=&quot;/image/test/icon.ico&quot; alt=&quot;test_image&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;</content><author><name>cdz</name></author><summary type="html">该 blog 用于说明写 blog 的一些格式要求。</summary></entry><entry><title type="html">东北旅行</title><link href="http://localhost:4000/life/travel/2019/02/07/md.html" rel="alternate" type="text/html" title="东北旅行" /><published>2019-02-07T10:26:57+08:00</published><updated>2019-02-07T10:26:57+08:00</updated><id>http://localhost:4000/life/travel/2019/02/07/md</id><content type="html" xml:base="http://localhost:4000/life/travel/2019/02/07/md.html"></content><author><name></name></author><summary type="html"></summary></entry><entry><title type="html">Test1</title><link href="http://localhost:4000/life/2019/02/06/test1.html" rel="alternate" type="text/html" title="Test1" /><published>2019-02-06T18:45:51+08:00</published><updated>2019-02-06T18:45:51+08:00</updated><id>http://localhost:4000/life/2019/02/06/test1</id><content type="html" xml:base="http://localhost:4000/life/2019/02/06/test1.html">&lt;p&gt;This is test for categories&lt;/p&gt;</content><author><name>cdz</name></author><category term="Life" /><summary type="html">This is test for categories</summary></entry><entry><title type="html">Welcome Aboard</title><link href="http://localhost:4000/tech/life/2019/02/02/welcome-aboard.html" rel="alternate" type="text/html" title="Welcome Aboard" /><published>2019-02-02T08:40:40+08:00</published><updated>2019-02-02T08:40:40+08:00</updated><id>http://localhost:4000/tech/life/2019/02/02/welcome-aboard</id><content type="html" xml:base="http://localhost:4000/tech/life/2019/02/02/welcome-aboard.html">&lt;p&gt;This is test for the blog.&lt;/p&gt;
+&lt;p&gt;第一种方法效果：&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;/image/test/icon.ico&quot; alt=&quot;test_image&quot; class=&quot;img-responsive&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;第二种方法效果：&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;/image/test/icon.ico&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;</content><author><name>cdz</name></author><summary type="html">该 blog 用于说明写 blog 的一些格式要求。</summary></entry><entry><title type="html">东北旅行</title><link href="http://localhost:4000/life/travel/2019/02/07/md.html" rel="alternate" type="text/html" title="东北旅行" /><published>2019-02-07T10:26:57+08:00</published><updated>2019-02-07T10:26:57+08:00</updated><id>http://localhost:4000/life/travel/2019/02/07/md</id><content type="html" xml:base="http://localhost:4000/life/travel/2019/02/07/md.html">&lt;p&gt;&lt;img src=&quot;/image/DongBei/snow_train.jpg&quot; width=&quot;500&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;扬帆&quot;&gt;扬帆&lt;/h3&gt;
+
+&lt;p&gt;年初因为课题的选择问题，弄得焦头烂额。&lt;/p&gt;
+
+&lt;!--more--&gt;</content><author><name>cdz</name></author><summary type="html">扬帆 年初因为课题的选择问题，弄得焦头烂额。</summary></entry><entry><title type="html">Test1</title><link href="http://localhost:4000/life/2019/02/06/test1.html" rel="alternate" type="text/html" title="Test1" /><published>2019-02-06T18:45:51+08:00</published><updated>2019-02-06T18:45:51+08:00</updated><id>http://localhost:4000/life/2019/02/06/test1</id><content type="html" xml:base="http://localhost:4000/life/2019/02/06/test1.html">&lt;p&gt;This is test for categories&lt;/p&gt;</content><author><name>cdz</name></author><category term="Life" /><summary type="html">This is test for categories</summary></entry><entry><title type="html">Welcome Aboard</title><link href="http://localhost:4000/tech/life/2019/02/02/welcome-aboard.html" rel="alternate" type="text/html" title="Welcome Aboard" /><published>2019-02-02T08:40:40+08:00</published><updated>2019-02-02T08:40:40+08:00</updated><id>http://localhost:4000/tech/life/2019/02/02/welcome-aboard</id><content type="html" xml:base="http://localhost:4000/tech/life/2019/02/02/welcome-aboard.html">&lt;p&gt;This is test for the blog.&lt;/p&gt;
 
 &lt;figure class=&quot;highlight&quot;&gt;&lt;pre&gt;&lt;code class=&quot;language-c--&quot; data-lang=&quot;c++&quot;&gt; 
 &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-07T14:05:52+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><entry><title type="html">Test for Blogging</title><link href="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html" rel="alternate" type="text/html" title="Test for Blogging" /><published>2019-02-07T12:55:13+08:00</published><updated>2019-02-07T12:55:13+08:00</updated><id>http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging</id><content type="html" xml:base="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html">&lt;p&gt;该 blog 用于说明写 blog 的一些格式要求。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-07T16:18:22+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><entry><title type="html">Test for Blogging</title><link href="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html" rel="alternate" type="text/html" title="Test for Blogging" /><published>2019-02-07T12:55:13+08:00</published><updated>2019-02-07T12:55:13+08:00</updated><id>http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging</id><content type="html" xml:base="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html">&lt;p&gt;该 blog 用于说明写 blog 的一些格式要求。&lt;/p&gt;
 
 &lt;!--more--&gt;
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
@@ -48,6 +48,11 @@ jekyll serve
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;这时候在浏览器中输入：&lt;a href=&quot;http://localhost:4000/&quot;&gt;http://localhost:4000/&lt;/a&gt; 就可以去看效果。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h3 id=&quot;部署-blog-到网站&quot;&gt;部署 blog 到网站&lt;/h3&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;octopress deploy
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h3 id=&quot;编写-markdown-的一些技巧&quot;&gt;编写 markdown 的一些技巧&lt;/h3&gt;

@@ -1,4 +1,3 @@
-@charset "UTF-8";
 /**
  * Reset some basic elements
  */
@@ -182,16 +181,6 @@ table {
     border-bottom-color: #c9c9c9; }
   table td {
     border: 1px solid #e8e8e8; }
-
-/*
- * [cdz]: 图片旋转
- */
-.rotate90 {
-  -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg); }
 
 /**
  * Site header

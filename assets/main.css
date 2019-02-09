@@ -383,6 +383,9 @@ table {
 .archive .post-list li {
   margin-bottom: 0; }
 
+.read-more-link {
+  float: right; }
+
 /**
  * Syntax highlighting styles
  */

@@ -8,15 +8,15 @@
 <meta property="og:title" content="SSA Form and PHI Nodes" />
 <meta name="author" content="cdz" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="最近接触到追踪一个变量在程序中的使用。当对 LLVM IR 中 instruction 进行分析的时候，遇到类似如下的代码： %19 = phi i1 [ false, %entry ], [ true, %land.rhs ]" />
-<meta property="og:description" content="最近接触到追踪一个变量在程序中的使用。当对 LLVM IR 中 instruction 进行分析的时候，遇到类似如下的代码： %19 = phi i1 [ false, %entry ], [ true, %land.rhs ]" />
+<meta name="description" content="本文主要简单介绍一下 LLVM 中的 PHINode。" />
+<meta property="og:description" content="本文主要简单介绍一下 LLVM 中的 PHINode。" />
 <link rel="canonical" href="http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html" />
 <meta property="og:url" content="http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html" />
 <meta property="og:site_name" content="CDZ" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2019-02-14T20:26:29+08:00" />
 <script type="application/ld+json">
-{"description":"最近接触到追踪一个变量在程序中的使用。当对 LLVM IR 中 instruction 进行分析的时候，遇到类似如下的代码： %19 = phi i1 [ false, %entry ], [ true, %land.rhs ]","author":{"@type":"Person","name":"cdz"},"@type":"BlogPosting","url":"http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html","headline":"SSA Form and PHI Nodes","dateModified":"2019-02-14T20:26:29+08:00","datePublished":"2019-02-14T20:26:29+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html"},"@context":"http://schema.org"}</script>
+{"description":"本文主要简单介绍一下 LLVM 中的 PHINode。","author":{"@type":"Person","name":"cdz"},"@type":"BlogPosting","url":"http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html","headline":"SSA Form and PHI Nodes","dateModified":"2019-02-14T20:26:29+08:00","datePublished":"2019-02-14T20:26:29+08:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html"},"@context":"http://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/assets/main.css"><link type="application/atom+xml" rel="alternate" href="http://localhost:4000/feed.xml" title="CDZ" /><!-- [cdz]: 为了 markdown 数学公式 -->
   <!-- 参考：
@@ -80,13 +80,15 @@
 
 
   <div class="post-content e-content" itemprop="articleBody">
-    <p>最近接触到追踪一个变量在程序中的使用。当对 LLVM IR 中 instruction 进行分析的时候，遇到类似如下的代码：</p>
-<div class="language-llvm highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">%19</span> <span class="p">=</span> <span class="k">phi</span> <span class="kt">i1</span> <span class="p">[</span> <span class="k">false</span><span class="p">,</span> <span class="nv">%entry</span> <span class="p">],</span> <span class="p">[</span> <span class="k">true</span><span class="p">,</span> <span class="nv">%land.rhs</span> <span class="p">]</span>
-</code></pre></div></div>
+    <p>本文主要简单介绍一下 LLVM 中的 <code class="highlighter-rouge">PHINode</code>。</p>
+
 <!--more-->
 
-<p>该指令为 <code class="highlighter-rouge">PHINode</code>，为 llvm 中的一个指令类，继承于 <code class="highlighter-rouge">llvm::Instruction</code>，具体继承关系和 llvm 源码见：<a href="https://llvm.org/doxygen/classllvm_1_1PHINode.html">PHINode 类</a> <br />
-本文主要简单介绍一下 <code class="highlighter-rouge">PHINode</code>。</p>
+<p>最近接触到追踪一个变量在程序中的使用。当对 LLVM IR 中 instruction 进行分析的时候，遇到类似如下的代码：</p>
+<div class="language-llvm highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">%19</span> <span class="p">=</span> <span class="k">phi</span> <span class="kt">i1</span> <span class="p">[</span> <span class="k">false</span><span class="p">,</span> <span class="nv">%entry</span> <span class="p">],</span> <span class="p">[</span> <span class="k">true</span><span class="p">,</span> <span class="nv">%land.rhs</span> <span class="p">]</span>
+</code></pre></div></div>
+
+<p>该指令为 <code class="highlighter-rouge">PHINode</code>，为 llvm 中的一个指令类，继承于 <code class="highlighter-rouge">llvm::Instruction</code>，具体继承关系和 llvm 源码见：<a href="https://llvm.org/doxygen/classllvm_1_1PHINode.html">PHINode 类</a> <br /></p>
 
 <p><br /></p>
 <h3 id="一ssa-简介">（一）、SSA 简介</h3>

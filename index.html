@@ -61,9 +61,7 @@
           <a class="post-link" href="/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html">
             SSA Form and PHI Nodes
           </a>
-        </h3><p>最近接触到追踪一个变量在程序中的使用。当对 LLVM IR 中 instruction 进行分析的时候，遇到类似如下的代码：</p>
-<div class="language-llvm highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">%19</span> <span class="p">=</span> <span class="k">phi</span> <span class="kt">i1</span> <span class="p">[</span> <span class="k">false</span><span class="p">,</span> <span class="nv">%entry</span> <span class="p">],</span> <span class="p">[</span> <span class="k">true</span><span class="p">,</span> <span class="nv">%land.rhs</span> <span class="p">]</span>
-</code></pre></div></div>
+        </h3><p>本文主要简单介绍一下 LLVM 中的 <code class="highlighter-rouge">PHINode</code>。</p>
 
 
           <a href="/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html" class="read-more-link">[Read more]</a></li>
@@ -73,7 +71,7 @@
           <a class="post-link" href="/jekyll/tech/2019/02/07/test-for-blogging.html">
             Test for blogging
           </a>
-        </h3><p>该 blog 用于说明写 blog 的一些格式要求。</p>
+        </h3><p>该文用于说明写 blog 的一些格式要求。</p>
 
 
           <a href="/jekyll/tech/2019/02/07/test-for-blogging.html" class="read-more-link">[Read more]</a></li>

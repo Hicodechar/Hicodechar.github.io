@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-15T02:31:34+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">SSA Form and PHI Nodes</title><link href="http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html" rel="alternate" type="text/html" title="SSA Form and PHI Nodes" /><published>2019-02-14T20:26:29+08:00</published><updated>2019-02-14T20:26:29+08:00</updated><id>http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes</id><content type="html" xml:base="http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html">&lt;p&gt;本文主要简单介绍一下 LLVM 中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;PHINode&lt;/code&gt;。&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-02-15T14:23:01+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">SSA Form and PHI Nodes</title><link href="http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html" rel="alternate" type="text/html" title="SSA Form and PHI Nodes" /><published>2019-02-14T20:26:29+08:00</published><updated>2019-02-14T20:26:29+08:00</updated><id>http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes</id><content type="html" xml:base="http://localhost:4000/llvm/tech/2019/02/14/ssa-form-and-phi-nodes.html">&lt;p&gt;本文主要简单介绍 LLVM 中的 &lt;code class=&quot;highlighter-rouge&quot;&gt;PHINode&lt;/code&gt;。&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -15,7 +15,7 @@
 在正式介绍 PHI Nodes 之前首先需要了解 &lt;code class=&quot;highlighter-rouge&quot;&gt;SSA&lt;/code&gt; ，因为所有的 LLVM IR 指令都是使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;SSA&lt;/code&gt; 形式表示。&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4 id=&quot;ssa&quot;&gt;SSA&lt;/h4&gt;
+&lt;h4 id=&quot;1ssa&quot;&gt;（1）、SSA&lt;/h4&gt;
 &lt;p&gt;&lt;br /&gt;
 &lt;code class=&quot;highlighter-rouge&quot;&gt;SSA (static single assignment form)&lt;/code&gt; ：&lt;strong&gt;静态一次性赋值&lt;/strong&gt;；意思是说&lt;strong&gt;每个变量（虚拟寄存器）都只能被赋值一次&lt;/strong&gt;；这样做的好处是可以方便优化代码。&lt;/p&gt;
 
@@ -32,7 +32,7 @@
 &lt;p&gt;很明显，用以上表示方法程序不需要做数据流分析就能够知道第三行使用的 $y$ 是来自第二行的定义。当然，使用 $SSA$ 还能做很多别的优化，我也没有细看，这里就不再赘述了，有兴趣的话可以参考：&lt;a href=&quot;https://en.wikipedia.org/wiki/Static_single_assignment_form&quot;&gt;维基百科上的介绍&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
-&lt;h4 id=&quot;生成-ssa-形式的指令&quot;&gt;生成 SSA 形式的指令&lt;/h4&gt;
+&lt;h4 id=&quot;2生成-ssa-形式的指令&quot;&gt;（2）、生成 SSA 形式的指令&lt;/h4&gt;
 &lt;p&gt;&lt;br /&gt;
 我们可以通过探究 $SSA$ 指令的生成知道为什么要引入 &lt;code class=&quot;highlighter-rouge&quot;&gt;PHI Nodes&lt;/code&gt;。&lt;/p&gt;
 
@@ -108,7 +108,7 @@ $ y_3 \leftarrow \phi (y_1, y_2) $
 &lt;h3 id=&quot;三参考链接&quot;&gt;（三）、参考链接&lt;/h3&gt;
 &lt;hr /&gt;
 &lt;p&gt;&lt;a href=&quot;http://www.llvmpy.org/llvmpy-doc/dev/doc/llvm_concepts.html#ssa-form-and-phi-nodes&quot;&gt;http://www.llvmpy.org/llvmpy-doc/dev/doc/llvm_concepts.html#ssa-form-and-phi-nodes&lt;/a&gt; &lt;br /&gt;&lt;a href=&quot;https://cs.uni-paderborn.de/fileadmin/informatik/fg/hit/teaching/SS2017/HWSW-Codesign/02-Compiler-LLVM.pdf&quot;&gt;https://cs.uni-paderborn.de/fileadmin/informatik/fg/hit/teaching/SS2017/HWSW-Codesign/02-Compiler-LLVM.pdf&lt;/a&gt; &lt;br /&gt;
-&lt;a href=&quot;https://llvm.org/doxygen/classllvm_1_1PHINode.html&quot;&gt;https://llvm.org/doxygen/classllvm_1_1PHINode.html&lt;/a&gt; &lt;br /&gt;&lt;/p&gt;</content><author><name>cdz</name></author><summary type="html">本文主要简单介绍一下 LLVM 中的 PHINode。</summary></entry><entry><title type="html">Test for blogging</title><link href="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html" rel="alternate" type="text/html" title="Test for blogging" /><published>2019-02-07T12:55:13+08:00</published><updated>2019-02-07T12:55:13+08:00</updated><id>http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging</id><content type="html" xml:base="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html">&lt;p&gt;该文用于说明写 blog 的一些格式要求。
+&lt;a href=&quot;https://llvm.org/doxygen/classllvm_1_1PHINode.html&quot;&gt;https://llvm.org/doxygen/classllvm_1_1PHINode.html&lt;/a&gt; &lt;br /&gt;&lt;/p&gt;</content><author><name>cdz</name></author><summary type="html">本文主要简单介绍 LLVM 中的 PHINode。</summary></entry><entry><title type="html">Test for blogging</title><link href="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html" rel="alternate" type="text/html" title="Test for blogging" /><published>2019-02-07T12:55:13+08:00</published><updated>2019-02-07T12:55:13+08:00</updated><id>http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging</id><content type="html" xml:base="http://localhost:4000/jekyll/tech/2019/02/07/test-for-blogging.html">&lt;p&gt;该文用于说明写 blog 的一些格式要求。
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;

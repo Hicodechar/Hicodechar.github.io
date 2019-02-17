@@ -609,7 +609,7 @@ hr {
   margin-inline-start: auto;
   margin-inline-end: auto;
   overflow: hidden;
-  border-top-style: none;
+  border-top-style: solid;
   border-right-style: none;
   border-left-style: none;
   border-width: 0.5px;

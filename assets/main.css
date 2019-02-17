@@ -609,14 +609,14 @@ hr {
   margin-inline-start: auto;
   margin-inline-end: auto;
   overflow: hidden;
-  border-style: ridge;
-  border-top-style: ridge;
-  border-right-style: ridge;
-  border-bottom-style: ridge;
-  border-left-style: ridge;
+  border-top-style: none;
+  border-right-style: none;
+  border-left-style: none;
   border-width: 0.5px;
   border-top-width: 0.5px;
   border-right-width: 0.5px;
-  border-bottom-width: 0.5px;
   border-left-width: 0.5px;
-  color: #111; }
+  border-bottom: 1px solid #e8e8e8;
+  border-bottom-width: 1px;
+  border-bottom-style: solid;
+  border-bottom-color: #e8e8e8; }

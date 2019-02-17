@@ -616,7 +616,7 @@ hr {
   border-top-width: 0.5px;
   border-right-width: 0.5px;
   border-left-width: 0.5px;
-  border-bottom: 1px solid #e8e8e8;
-  border-bottom-width: 1px;
+  border-bottom: 0.5px solid #e8e8e8;
+  border-bottom-width: 0.5px;
   border-bottom-style: solid;
   border-bottom-color: #e8e8e8; }

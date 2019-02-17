@@ -609,7 +609,11 @@ hr {
   margin-inline-start: auto;
   margin-inline-end: auto;
   overflow: hidden;
-  border-style: inset;
+  border-style: ridge;
+  border-top-style: ridge;
+  border-right-style: ridge;
+  border-bottom-style: ridge;
+  border-left-style: ridge;
   border-width: 0.5px;
   border-top-width: 0.5px;
   border-right-width: 0.5px;

@@ -2,4 +2,5 @@
 
 [blog.dianzhangchen.com][blog]
 
-[blog]: blog.dianzhangchen.com
+[blog]: https://blog.dianzhangchen.com/
+

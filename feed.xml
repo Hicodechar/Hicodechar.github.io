@@ -1,4 +1,101 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-04-11T21:22:35+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">MapReduce</title><link href="http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce.html" rel="alternate" type="text/html" title="MapReduce" /><published>2019-04-11T20:44:48+08:00</published><updated>2019-04-11T20:44:48+08:00</updated><id>http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce</id><content type="html" xml:base="http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce.html">&lt;p&gt;本文简单介绍分布式计算框架 MapReduce 
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-29T02:57:02+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">《教父》– 简评</title><link href="http://localhost:4000/life/2019/07/29/GodFather.html" rel="alternate" type="text/html" title="《教父》-- 简评" /><published>2019-07-29T01:44:39+08:00</published><updated>2019-07-29T01:44:39+08:00</updated><id>http://localhost:4000/life/2019/07/29/GodFather</id><content type="html" xml:base="http://localhost:4000/life/2019/07/29/GodFather.html">&lt;p&gt;&lt;strong&gt;The Godfather is the I-ching.&lt;/strong&gt; &lt;br /&gt;
+&lt;strong&gt;The Godfather is the sum of all wisdom.&lt;/strong&gt; &lt;br /&gt;
+&lt;strong&gt;The Godfather is the answer to any question.&lt;/strong&gt; &lt;br /&gt;&lt;/p&gt;
+
+&lt;p align=&quot;right&quot;&gt; --《You’ve got mail》&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;一简评&quot;&gt;（一）、简评&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;p align=&quot;center&quot;&gt;&lt;img src=&quot;/image/movies/godfather/godfather.png&quot; width=&quot;300&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;《教父》是第 45 届&lt;code class=&quot;highlighter-rouge&quot;&gt;奥斯卡最佳影片&lt;/code&gt;；非常有时代特色。影片从著名长篇小说改编而来，也拿到了&lt;code class=&quot;highlighter-rouge&quot;&gt;最佳改编奖&lt;/code&gt;。同时，马龙白兰度对教父的演绎，也可以说是入门三分，无其左右，有当黑帮大佬的凶狠、智慧与高冷，同时当面对儿子的死亡时又表现出充满复杂的悲伤，所以马龙白兰度也拿到了当时的&lt;code class=&quot;highlighter-rouge&quot;&gt;最佳男主角&lt;/code&gt;奖。该电影在 &lt;code class=&quot;highlighter-rouge&quot;&gt;IMDB 排名第二&lt;/code&gt;，是一个时代的象征和永恒的经典。&lt;/p&gt;
+
+&lt;p&gt;这部电影被成为是&lt;code class=&quot;highlighter-rouge&quot;&gt;男人的圣经&lt;/code&gt;。这么评价也是有原因的，表面上这是一部讲述黑帮的斗争，其实电影一直强调家庭对于男人的意义：&lt;code class=&quot;highlighter-rouge&quot;&gt;The man who doesn't spend time with his family ... can never be a real man.&lt;/code&gt; ；老教父虽然在事业上是刀光剑影，却从不把自己的事业上的烦恼困惑转移到自己的家人身上，留给家人的都是欢笑和慈祥：&lt;code class=&quot;highlighter-rouge&quot;&gt;Papa never talked business at the table in front of the kids.&lt;/code&gt;。他用行动诠释了什么是责任，什么是智慧。&lt;/p&gt;
+
+&lt;p&gt;国外很多影视剧都在强调 &lt;code class=&quot;highlighter-rouge&quot;&gt;Family&lt;/code&gt;，之前追的电视剧《初代吸血鬼》，也是讲述了吸血鬼始祖们如何捍卫自己的家族 ：&lt;code class=&quot;highlighter-rouge&quot;&gt;Family，always and forever&lt;/code&gt;。近期完结的 《权利的游戏》，也是讲述家族之间的斗争，以及史塔克家族兄妹间如何在亡族的命运下，互相搀扶，走向权利的制高点。&lt;/p&gt;
+
+&lt;p&gt;当然，老教父给人映像深刻的不仅仅是家族观念，还有他的为人处世：守信、广结好友、有底线等等，这是一部值得用心慢慢品味的电影。&lt;/p&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;二经典语录&quot;&gt;（二）、经典语录&lt;/h2&gt;
+&lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;以下是该电影的比较经典语录：&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I'm gonna make him an offer he can't refuse. 
+我会给他一个他无法拒绝的提议
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;What have I ever done to make you treat me so disrespecfully?
+If you'd come to me in friendship, then the scum that ruined your daughter would be suffering this ever day.
+
+And if, by chance, an honest man like yourself should make enemies, then they would be my enemies.
+And then they would fear you.
+
+Be my friend?
+God father...
+
+我到底做了什么，让你这么不尊重我？
+如果你以朋友身份来找我，那么伤害你女儿的混蛋就会收到折磨。
+而且，你这种诚实人的敌人就是我的敌人。
+那么，他们就会怕你。
+
+当我的朋友？
+教父...
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;You spend time with your family ?
+Good! Because the man who doesn't spend time with his family ... can never be a real man.
+
+你花过时间与家人共聚吗
+很好，因为不抽空陪家人的男人不是真正的男人。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Papa never talked business at the table in front of the kids.
+爸爸从来不在餐桌上当着孩子们谈论公事。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Never tell anybody outside the family what you're thinking.
+别让外人知道你在想什么。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I spent my life tryin' not to be careless.
+Women and children can be careless, but not men.
+我花了一辈子就学会了“小心”，
+女人和小孩可以粗心大意，但是男人不行。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I worked my whole life--I don't apologize--to take care of my family,
+and i refuse to be a fool...dancing on a string held by all those big shots.
+我干了一辈子，没什么遗憾的，我照顾了我的家人。
+但我绝不当傻瓜，让那些大人物在后面操纵我
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;I don't apologize, That my life.
+But i thought that when it was your time...you would the one to hold the strings.
+我不必遗憾，那就是我的生活。
+但是我想过， 有一天你能够当那些操纵的人。
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>cdz</name></author><summary type="html">The Godfather is the I-ching. The Godfather is the sum of all wisdom. The Godfather is the answer to any question. --《You’ve got mail》</summary></entry><entry><title type="html">MapReduce</title><link href="http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce.html" rel="alternate" type="text/html" title="MapReduce" /><published>2019-04-11T20:44:48+08:00</published><updated>2019-04-11T20:44:48+08:00</updated><id>http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce</id><content type="html" xml:base="http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce.html">&lt;p&gt;本文简单介绍分布式计算框架 MapReduce 
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;hr /&gt;

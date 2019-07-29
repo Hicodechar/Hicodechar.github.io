@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-29T13:46:56+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">Postgres TOAST</title><link href="http://localhost:4000/tech/2019/07/29/postgres-toast.html" rel="alternate" type="text/html" title="Postgres TOAST" /><published>2019-07-29T11:52:38+08:00</published><updated>2019-07-29T11:52:38+08:00</updated><id>http://localhost:4000/tech/2019/07/29/postgres-toast</id><content type="html" xml:base="http://localhost:4000/tech/2019/07/29/postgres-toast.html">&lt;p&gt;本文主要介绍 Postgres 中的 Toast 技术&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-29T20:51:29+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">Postgres TOAST</title><link href="http://localhost:4000/tech/2019/07/29/postgres-toast.html" rel="alternate" type="text/html" title="Postgres TOAST" /><published>2019-07-29T11:52:38+08:00</published><updated>2019-07-29T11:52:38+08:00</updated><id>http://localhost:4000/tech/2019/07/29/postgres-toast</id><content type="html" xml:base="http://localhost:4000/tech/2019/07/29/postgres-toast.html">&lt;p&gt;本文主要介绍 Postgres 中的 Toast 技术&lt;/p&gt;
 
 &lt;!--more--&gt;
 
@@ -178,9 +178,9 @@ https://my.oschina.net/Kenyon/blog/113026 &lt;br /&gt;&lt;/p&gt;</content><autho
 &lt;strong&gt;The Godfather is the sum of all wisdom.&lt;/strong&gt; &lt;br /&gt;
 &lt;strong&gt;The Godfather is the answer to any question.&lt;/strong&gt; &lt;br /&gt;&lt;/p&gt;
 
-&lt;p align=&quot;right&quot;&gt; --《You’ve got mail》&lt;/p&gt;
-
 &lt;!--more--&gt;
+
+&lt;p align=&quot;right&quot;&gt; --《You’ve got mail》&lt;/p&gt;
 
 &lt;p&gt;&lt;br /&gt;&lt;/p&gt;
 &lt;h2 id=&quot;一简评&quot;&gt;（一）、简评&lt;/h2&gt;
@@ -271,7 +271,7 @@ and i refuse to be a fool...dancing on a string held by all those big shots.
 But i thought that when it was your time...you would the one to hold the strings.
 我不必遗憾，那就是我的生活。
 但是我想过， 有一天你能够当那些操纵的人。
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>cdz</name></author><summary type="html">The Godfather is the I-ching. The Godfather is the sum of all wisdom. The Godfather is the answer to any question. --《You’ve got mail》</summary></entry><entry><title type="html">MapReduce</title><link href="http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce.html" rel="alternate" type="text/html" title="MapReduce" /><published>2019-04-11T20:44:48+08:00</published><updated>2019-04-11T20:44:48+08:00</updated><id>http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce</id><content type="html" xml:base="http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce.html">&lt;p&gt;本文简单介绍分布式计算框架 MapReduce 
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>cdz</name></author><summary type="html">The Godfather is the I-ching. The Godfather is the sum of all wisdom. The Godfather is the answer to any question.</summary></entry><entry><title type="html">MapReduce</title><link href="http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce.html" rel="alternate" type="text/html" title="MapReduce" /><published>2019-04-11T20:44:48+08:00</published><updated>2019-04-11T20:44:48+08:00</updated><id>http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce</id><content type="html" xml:base="http://localhost:4000/tech/distributed_system/2019/04/11/mapreduce.html">&lt;p&gt;本文简单介绍分布式计算框架 MapReduce 
 &lt;!--more--&gt;&lt;/p&gt;
 
 &lt;hr /&gt;

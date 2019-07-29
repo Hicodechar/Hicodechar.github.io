@@ -1,4 +1,180 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-29T02:57:02+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">《教父》– 简评</title><link href="http://localhost:4000/life/2019/07/29/GodFather.html" rel="alternate" type="text/html" title="《教父》-- 简评" /><published>2019-07-29T01:44:39+08:00</published><updated>2019-07-29T01:44:39+08:00</updated><id>http://localhost:4000/life/2019/07/29/GodFather</id><content type="html" xml:base="http://localhost:4000/life/2019/07/29/GodFather.html">&lt;p&gt;&lt;strong&gt;The Godfather is the I-ching.&lt;/strong&gt; &lt;br /&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2019-07-29T13:46:56+08:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">CDZ</title><subtitle>Welcome to cdz's blog. Any questions or suggesions, please contact me.</subtitle><entry><title type="html">Postgres TOAST</title><link href="http://localhost:4000/tech/2019/07/29/postgres-toast.html" rel="alternate" type="text/html" title="Postgres TOAST" /><published>2019-07-29T11:52:38+08:00</published><updated>2019-07-29T11:52:38+08:00</updated><id>http://localhost:4000/tech/2019/07/29/postgres-toast</id><content type="html" xml:base="http://localhost:4000/tech/2019/07/29/postgres-toast.html">&lt;p&gt;本文主要介绍 Postgres 中的 Toast 技术&lt;/p&gt;
+
+&lt;!--more--&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;一toast-技术&quot;&gt;（一）、Toast 技术&lt;/h2&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;11-简介&quot;&gt;1.1 简介&lt;/h3&gt;
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;Toast&lt;/code&gt; 是一种&lt;strong&gt;超尺寸字段存储技术（ The Oversized Attribute Storage Technique）&lt;/strong&gt; 。是 Postgres 中存储超长字段的方法，通常在 Postgres 中：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;每个 Row（数据行）都存储在大小为 8kb 的 Page（页） 中&lt;/li&gt;
+  &lt;li&gt;每行数据不会跨页存储&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;为了支持一行数据超过 8kb 的情况，所以引入了 $Toast$ 技术。&lt;/p&gt;
+
+&lt;h3 id=&quot;12-技术细节&quot;&gt;1.2 技术细节&lt;/h3&gt;
+
+&lt;p&gt;当 Postgres 需要存储一个超过 2kb 的行的时候，$Toast$ 技术就会派上用场；Postgres 首先会尝试使用 &lt;code class=&quot;highlighter-rouge&quot;&gt;压缩技术&lt;/code&gt; ，当该行能够被压缩到 2kb 以下的话，那么问题也就解决了。如果压缩后，大小还超过 2kb 的话，Postgres 就会把这个被压缩的数据切分为大小为 2kb 的数据块（chunk），然后每个数据块都存储在 &lt;code class=&quot;highlighter-rouge&quot;&gt;Toast Table&lt;/code&gt; 中。每个普通的 $Postgres  Table$ 都有一个与之对应的 $Toast Table$，把超长数据切分后存储在这个 $Toast Table$ 中，存储在 $Toast Table$ 中的数据也称为&lt;code class=&quot;highlighter-rouge&quot;&gt;TOASTed&lt;/code&gt;。&lt;/p&gt;
+
+&lt;p&gt;每个 $Toast Table$ 有&lt;strong&gt;三列&lt;/strong&gt;：&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;chunk_id&lt;/code&gt;：用于区分 Toast table 中的数据块(chunk) 属于哪个 $TOASTed$ 数据；也就是&lt;strong&gt;区分哪些数据块属于同一原始数据&lt;/strong&gt;。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;chunk_seq&lt;/code&gt;：用于区分数据块之间的&lt;strong&gt;顺序(orders)&lt;/strong&gt;；比如排第一的数据块 $chunk_seq=0$，排第二的数据块 $chunk_seq=1$ 等等。&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;chunk_data&lt;/code&gt;：用于真正存储&lt;strong&gt;数据&lt;/strong&gt;。&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;当进行 $query$ 的时候，当需要读取 $TOASTed$ 数据时，Postgres 会使用&lt;code class=&quot;highlighter-rouge&quot;&gt;(chunk_id, chunk_seq)&lt;/code&gt; 来当作索引，去 $Toast Table$ 读取数据编号为 $chunk_id$ 且按照 &lt;code class=&quot;highlighter-rouge&quot;&gt;chunk_seq&lt;/code&gt; 排序的数据块；把这相关的数据块都读走，然后进行解压缩，就能够给得到原始的数据了。&lt;/p&gt;
+
+&lt;p&gt;特定情况下，$Toast$ 技术还能够提升性能；当不需要读取 $TOASTed$ 原始数据时，我们可以不把 Toast table 中的数据块读入到内存。&lt;/p&gt;
+
+&lt;h3 id=&quot;13-实例&quot;&gt;1.3 实例&lt;/h3&gt;
+
+&lt;p&gt;我们可以通过 Postgres 中普通的数据表，得到相应的 &lt;strong&gt;Toast table&lt;/strong&gt; 。
+首先，我们创建一个 $messages$ 表，有一个单一的列 $message$:&lt;/p&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;CREATE&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;TABLE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;message&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;text&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;然后，在表中插入一些随机的字符串：&lt;/p&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;INSERT&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;INTO&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;messages&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;string_agg&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;chr&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;floor&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;26&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;65&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;),&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;''&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+        &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generate_series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10000&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;))&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;generate_series&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;这样我们就得到了一个表，里面有 $TOASTed$ 数据；首先，我们需要从这个 $messages$ 表得到相应的 $Toast table$ 的名字，可以通过以下命令获得：&lt;/p&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;reltoastrelid&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;::&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;regclass&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pg_class&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;WHERE&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;relname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'messages'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;reltoastrelid&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;-------------------------&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;pg_toast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pg_toast_59611&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;row&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;这行语句从 &lt;code class=&quot;highlighter-rouge&quot;&gt;pg_class&lt;/code&gt; 表中读取相应的信息（ &lt;code class=&quot;highlighter-rouge&quot;&gt;pg_class&lt;/code&gt; 表是 Postgres 中用于存储&lt;code class=&quot;highlighter-rouge&quot;&gt;表的metadata&lt;/code&gt;的一个表）。&lt;/p&gt;
+
+&lt;p&gt;当我们有了相应的 $Toast table$ 的名字后，我们可以输出相应的信息：&lt;/p&gt;
+&lt;div class=&quot;language-sql highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;SELECT&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pg_toast&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pg_toast_59611&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;chunk_id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chunk_seq&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;chunk_data&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;----------+-----------+------------&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;59617&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;         &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x4c4457&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;mi&quot;&gt;59617&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt;         &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;|&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;x424d4b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;...&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;注意：chunk_data 的内容是&lt;strong&gt;压缩&lt;/strong&gt;的&lt;strong&gt;binary格式&lt;/strong&gt;的数据，所以不是 human readable.&lt;/p&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;二postgres-源码阅读&quot;&gt;（二）、Postgres 源码阅读&lt;/h2&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;并不是全部数据类型都支持toast，对于有些不会产生大字段数据的字段类型(比如date,time,boolean等)是完全没必要用到Toast技术。支持Toast的数据类型应当时变长的 &lt;code class=&quot;highlighter-rouge&quot;&gt;varlena&lt;/code&gt;：&lt;/p&gt;
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varlena&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;vl_len_&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;        &lt;span class=&quot;cm&quot;&gt;/* Do not touch this field directly! */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;vl_dat&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FLEXIBLE_ARRAY_MEMBER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;    &lt;span class=&quot;cm&quot;&gt;/* Data content is here */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;以上数据类型并不是表示一个&lt;code class=&quot;highlighter-rouge&quot;&gt;toasted&lt;/code&gt; 数据类型的，因为它过于简单，没有包含是否压缩，以及是否使用 toast 技术的描述。该数据类型仅仅表示 &lt;code class=&quot;highlighter-rouge&quot;&gt;de-toasted&lt;/code&gt; 数据。
+对于表示 toasted 数据，应当使用：(定义在 &lt;code class=&quot;highlighter-rouge&quot;&gt;src/include/postgres.h&lt;/code&gt; 中：)&lt;/p&gt;
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;union&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;                        &lt;span class=&quot;cm&quot;&gt;/* Normal varlena (4-byte length) */&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;uint32&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FLEXIBLE_ARRAY_MEMBER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;va_4byte&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;                        &lt;span class=&quot;cm&quot;&gt;/* Compressed-in-line format */&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;uint32&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;uint32&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_rawsize&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* Original data size (excludes header) */&lt;/span&gt;
+        &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FLEXIBLE_ARRAY_MEMBER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* Compressed data */&lt;/span&gt;
+    &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;            &lt;span class=&quot;n&quot;&gt;va_compressed&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varattrib_4b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;uint8&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FLEXIBLE_ARRAY_MEMBER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* Data begins here */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varattrib_1b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/* TOAST pointers are a subset of varattrib_1b with an identifying tag byte */&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;typedef&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;struct&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;uint8&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_header&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;        &lt;span class=&quot;cm&quot;&gt;/* Always 0x80 or 0x01 */&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;uint8&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_tag&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;            &lt;span class=&quot;cm&quot;&gt;/* Type of datum */&lt;/span&gt;
+    &lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt;        &lt;span class=&quot;n&quot;&gt;va_data&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;FLEXIBLE_ARRAY_MEMBER&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt; &lt;span class=&quot;cm&quot;&gt;/* Type-specific data */&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;varattrib_1b_e&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;那么当我拿到一个变长数据类型（&lt;code class=&quot;highlighter-rouge&quot;&gt;varlena&lt;/code&gt;）的数据时，我怎么知道它是否使用到了 toast 技术呢？以及是否压缩了呢？这就用到了以下的宏：&lt;/p&gt;
+
+&lt;p&gt;在 &lt;code class=&quot;highlighter-rouge&quot;&gt;src/include/postgres.h&lt;/code&gt; 中：&lt;/p&gt;
+
+&lt;div class=&quot;language-c++ highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cm&quot;&gt;/*
+ * Bit layouts for varlena headers on big-endian machines:
+ *
+ * 00xxxxxx 4-byte length word, aligned, uncompressed data (up to 1G)
+ * 01xxxxxx 4-byte length word, aligned, *compressed* data (up to 1G)
+ * 10000000 1-byte length word, unaligned, TOAST pointer
+ * 1xxxxxxx 1-byte length word, unaligned, uncompressed data (up to 126b)
+ *
+ * Bit layouts for varlena headers on little-endian machines:
+ *
+ * xxxxxx00 4-byte length word, aligned, uncompressed data (up to 1G)
+ * xxxxxx10 4-byte length word, aligned, *compressed* data (up to 1G)
+ * 00000001 1-byte length word, unaligned, TOAST pointer
+ * xxxxxxx1 1-byte length word, unaligned, uncompressed data (up to 126b)
+ *
+ * The &quot;xxx&quot; bits are the length field (which includes itself in all cases).
+ * In the big-endian case we mask to extract the length, in the little-endian
+ * case we shift.  Note that in both cases the flag bits are in the physically
+ * first byte.  Also, it is not possible for a 1-byte length word to be zero;
+ * this lets us disambiguate alignment padding bytes from the start of an
+ * unaligned datum.  (We now *require* pad bytes to be filled with zero!)
+ *
+ * In TOAST pointers the va_tag field (see varattrib_1b_e) is used to discern
+ * the specific type and length of the pointer datum.
+ */&lt;/span&gt;
+
+&lt;span class=&quot;cm&quot;&gt;/*
+ * Endian-dependent macros.  These are considered internal --- use the
+ * external macros below instead of using these directly.
+ *
+ * Note: IS_1B is true for external toast records but VARSIZE_1B will return 0
+ * for such records. Hence you should usually check for IS_EXTERNAL before
+ * checking for IS_1B.
+ */&lt;/span&gt;
+
+&lt;span class=&quot;cp&quot;&gt;#define VARATT_IS_4B(PTR) \
+((((varattrib_1b *) (PTR))-&amp;gt;va_header &amp;amp; 0x80) == 0x00)  # 判断 ptr 指针所指向的是不是：aligned；是则返回 1。
+#define VARATT_IS_4B_U(PTR) \
+((((varattrib_1b *) (PTR))-&amp;gt;va_header &amp;amp; 0xC0) == 0x00)  # 判断 ptr 指针所指向的是不是：aligned 且 非压缩 ；是则返回 1。
+#define VARATT_IS_4B_C(PTR) \
+((((varattrib_1b *) (PTR))-&amp;gt;va_header &amp;amp; 0xC0) == 0x40)  # 判断 ptr 指针所指向的是不是：aligned 且 压缩 ；是则返回 1。
+#define VARATT_IS_1B(PTR) \
+((((varattrib_1b *) (PTR))-&amp;gt;va_header &amp;amp; 0x80) == 0x80)  # 判断 ptr 指针所指向的是不是：非 aligned ；是则返回 1。
+#define VARATT_IS_1B_E(PTR) \
+((((varattrib_1b *) (PTR))-&amp;gt;va_header) == 0x80)         # 如果 ptr 指针所指向的结构体中，head 的最高两位为：10；是则是：TOAST pointers
+#define VARATT_NOT_PAD_BYTE(PTR) \
+(*((uint8 *) (PTR)) != 0)
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;hr /&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+&lt;h2 id=&quot;三参考资料&quot;&gt;（三）、参考资料&lt;/h2&gt;
+&lt;p&gt;&lt;br /&gt;&lt;/p&gt;
+
+&lt;p&gt;https://malisper.me/postgres-toast/  &lt;br /&gt;
+https://my.oschina.net/Kenyon/blog/113026 &lt;br /&gt;&lt;/p&gt;</content><author><name>cdz</name></author><summary type="html">本文主要介绍 Postgres 中的 Toast 技术</summary></entry><entry><title type="html">《教父》– 简评</title><link href="http://localhost:4000/life/2019/07/29/GodFather.html" rel="alternate" type="text/html" title="《教父》-- 简评" /><published>2019-07-29T01:44:39+08:00</published><updated>2019-07-29T01:44:39+08:00</updated><id>http://localhost:4000/life/2019/07/29/GodFather</id><content type="html" xml:base="http://localhost:4000/life/2019/07/29/GodFather.html">&lt;p&gt;&lt;strong&gt;The Godfather is the I-ching.&lt;/strong&gt; &lt;br /&gt;
 &lt;strong&gt;The Godfather is the sum of all wisdom.&lt;/strong&gt; &lt;br /&gt;
 &lt;strong&gt;The Godfather is the answer to any question.&lt;/strong&gt; &lt;br /&gt;&lt;/p&gt;
 
